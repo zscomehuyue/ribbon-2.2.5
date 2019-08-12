@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.netflix.evcache:evcache-client:1.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.netflix.evcache/evcache-client/1.0.5/8af52271058386e3ca76ceb7f9955af4c40ada13/evcache-client-1.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.netflix.evcache/evcache-client/1.0.5/21180d010ae187838448e8dcae2a29ad84b1ac51/evcache-client-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

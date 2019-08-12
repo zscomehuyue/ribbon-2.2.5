@@ -26,4 +26,6 @@ dependencies {
     testCompile project(':ribbon-eureka')
     testCompile project(':ribbon-test')
     testCompile 'com.google.mockwebserver:mockwebserver:20130706'
+    compile 'io.netty:netty-handler-proxy:4.1.9.Final'
+    
 }

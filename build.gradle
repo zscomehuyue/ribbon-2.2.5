@@ -1,6 +1,7 @@
-//plugins {
+plugins {
 //    id 'nebula.netflixoss' version '2.2.10'
-//}
+    id 'idea'
+}
 
 // Establish version and status
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
