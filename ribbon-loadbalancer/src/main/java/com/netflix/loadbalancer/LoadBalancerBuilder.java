@@ -9,22 +9,22 @@ import com.netflix.client.config.IClientConfigKey;
 import java.util.List;
 
 public class LoadBalancerBuilder<T extends Server> {
-    
+
     private IClientConfig config = DefaultClientConfigImpl.getClientConfigWithDefaultValues();
     private ServerListFilter serverListFilter;
     private IRule rule;
     private IPing ping = new DummyPing();
     private ServerList serverListImpl;
     private ServerListUpdater serverListUpdater;
-    
-    
+
+
     private LoadBalancerBuilder() {
     }
-    
+
     public static <T extends Server> LoadBalancerBuilder<T> newBuilder() {
         return new LoadBalancerBuilder<T>();
     }
-    
+
     public LoadBalancerBuilder<T> withClientConfig(IClientConfig config) {
         this.config = config;
         return this;
@@ -34,17 +34,17 @@ public class LoadBalancerBuilder<T extends Server> {
         this.rule = rule;
         return this;
     }
-    
+
     public LoadBalancerBuilder<T> withPing(IPing ping) {
         this.ping = ping;
         return this;
     }
-    
+
     public LoadBalancerBuilder<T> withDynamicServerList(ServerList<T> serverListImpl) {
         this.serverListImpl = serverListImpl;
         return this;
     }
-    
+
     public LoadBalancerBuilder<T> withServerListFilter(ServerListFilter<T> serverListFilter) {
         this.serverListFilter = serverListFilter;
         return this;
@@ -63,7 +63,7 @@ public class LoadBalancerBuilder<T extends Server> {
         lb.setServersList(servers);
         return lb;
     }
-    
+
     private static IRule createRuleFromConfig(IClientConfig config) {
         String ruleClassName = config.get(IClientConfigKey.Keys.NFLoadBalancerRuleClassName);
         if (ruleClassName == null) {
@@ -91,7 +91,7 @@ public class LoadBalancerBuilder<T extends Server> {
         }
         return updater;
     }
-    
+
     private static ServerList<Server> createServerListFromConfig(IClientConfig config) {
         String serverListClassName = config.get(IClientConfigKey.Keys.NIWSServerListClassName);
         if (serverListClassName == null) {
@@ -105,12 +105,12 @@ public class LoadBalancerBuilder<T extends Server> {
         }
         return list;
     }
-    
+
     /**
      * Build a {@link ZoneAwareLoadBalancer} with a dynamic {@link ServerList} and an {@link IRule}. The {@link ServerList} can be
      * either set in the {@link #withDynamicServerList(ServerList)} or in the {@link IClientConfig} using {@link CommonClientConfigKey#NIWSServerListClassName}.
      * The {@link IRule} can be either set by {@link #withRule(IRule)} or in the {@link IClientConfig} using
-     * {@link CommonClientConfigKey#NFLoadBalancerRuleClassName}. 
+     * {@link CommonClientConfigKey#NFLoadBalancerRuleClassName}.
      */
     public ZoneAwareLoadBalancer<T> buildDynamicServerListLoadBalancer() {
         if (serverListImpl == null) {
@@ -147,7 +147,8 @@ public class LoadBalancerBuilder<T extends Server> {
 
     /**
      * Build a load balancer using the configuration from the {@link IClientConfig} only. It uses reflection to initialize necessary load balancer
-     * components. 
+     * components.
+     * FIXME 通过IClientConfig来创建负载均衡器，有url的连接超时、连接池相关配置；支持tcp相关的配置吗？？？
      */
     public ILoadBalancer buildLoadBalancerFromConfigWithReflection() {
         String loadBalancerClassName = config.get(CommonClientConfigKey.NFLoadBalancerClassName);
