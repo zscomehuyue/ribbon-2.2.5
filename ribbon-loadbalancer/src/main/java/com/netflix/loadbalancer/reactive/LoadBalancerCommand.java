@@ -351,6 +351,7 @@ public class LoadBalancerCommand<T> {
 
         //FIXME 把异常包装成observerable
         return o.onErrorResumeNext(new Func1<Throwable, Observable<T>>() {
+
             @Override
             public Observable<T> call(Throwable e) {
                 if (context.getAttemptCount() > 0) {
@@ -367,7 +368,6 @@ public class LoadBalancerCommand<T> {
                 if (listenerInvoker != null) {
                     listenerInvoker.onExecutionFailed(e, context.toFinalExecutionInfo());
                 }
-
                 return Observable.error(e);
             }
         });

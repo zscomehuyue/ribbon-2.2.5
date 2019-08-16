@@ -2,22 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="927ebef5-ce12-452b-a94a-1397a2fcf3e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.2/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.2/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.2/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.2/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-eureka/src/main/java/com/netflix/niws/loadbalancer/DiscoveryEnabledNIWSServerList.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-eureka/src/main/java/com/netflix/niws/loadbalancer/DiscoveryEnabledNIWSServerList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/loadbalancer/URLConnectionLoadBalancer.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/loadbalancer/URLConnectionLoadBalancer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/rx/RxMovieServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/rx/RxMovieServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/server/ServerResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/server/ServerResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/ClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/ClientFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/IPrimeConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/IPrimeConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/PrimeConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/client/PrimeConnections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/LoadBalancerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/LoadBalancerBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/LoadBalancerContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/LoadBalancerContext.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/reactive/LoadBalancerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/reactive/LoadBalancerCommand.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -163,37 +147,17 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/loadbalancer/URLConnectionLoadBalancer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="35" column="47" lean-forward="true" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
+            <state relative-caret-position="271">
+              <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1260#1268#0" expanded="true" />
-                <element signature="e#1375#2016#0" expanded="true" />
                 <element signature="e#2015#2016#0" expanded="true" />
                 <element signature="e#2133#2134#0" expanded="true" />
                 <element signature="e#2212#2213#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/reactive/LoadBalancerCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="261" column="31" selection-start-line="261" selection-start-column="25" selection-end-line="261" selection-end-column="31" />
-              <folding>
-                <element signature="e#6480#6932#0" expanded="true" />
-                <element signature="e#6931#6932#0" expanded="true" />
-                <element signature="e#9807#13693#0" expanded="true" />
-                <element signature="e#10348#13466#0" expanded="true" />
-                <element signature="e#13465#13466#0" expanded="true" />
-                <element signature="e#13692#13693#0" expanded="true" />
-                <element signature="e#13898#15144#0" expanded="true" />
-                <element signature="e#15143#15144#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -280,7 +244,7 @@
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="720" />
@@ -432,7 +396,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1565938835109" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1565950800670" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -527,18 +491,17 @@
       <workItem from="1565662995214" duration="4933000" />
       <workItem from="1565775948787" duration="1529000" />
       <workItem from="1565835776802" duration="7035000" />
-      <workItem from="1565918414529" duration="9181000" />
+      <workItem from="1565918414529" duration="10906000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24278000" />
+    <option name="totallyTimeSpent" value="26003000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="720" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1280" height="720" extended-state="1" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1987076" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1987076" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -553,7 +516,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.2429752" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.27933884" />
       <window_info anchor="bottom" id="CheckStyle" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
@@ -937,21 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/loadbalancer/URLConnectionLoadBalancer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="35" column="47" lean-forward="true" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1260#1268#0" expanded="true" />
-            <element signature="e#1375#2016#0" expanded="true" />
-            <element signature="e#2015#2016#0" expanded="true" />
-            <element signature="e#2133#2134#0" expanded="true" />
-            <element signature="e#2212#2213#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.9/3fe5744a8511d413fed9c8fb318057358cdb6436/rxjava-1.0.9-sources.jar!/rx/Observable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -968,10 +916,17 @@
         <state relative-caret-position="-1" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/reactive/ServerOperation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ribbon-loadbalancer/src/main/java/com/netflix/loadbalancer/reactive/LoadBalancerCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="261" column="31" selection-start-line="261" selection-start-column="25" selection-end-line="261" selection-end-column="31" />
+        <state relative-caret-position="156">
+          <caret line="240" lean-forward="true" selection-start-line="240" selection-end-line="240" />
           <folding>
             <element signature="e#6480#6932#0" expanded="true" />
             <element signature="e#6931#6932#0" expanded="true" />
@@ -981,6 +936,20 @@
             <element signature="e#13692#13693#0" expanded="true" />
             <element signature="e#13898#15144#0" expanded="true" />
             <element signature="e#15143#15144#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ribbon-examples/src/main/java/com/netflix/ribbon/examples/loadbalancer/URLConnectionLoadBalancer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1260#1268#0" expanded="true" />
+            <element signature="e#2015#2016#0" expanded="true" />
+            <element signature="e#2133#2134#0" expanded="true" />
+            <element signature="e#2212#2213#0" expanded="true" />
           </folding>
         </state>
       </provider>
