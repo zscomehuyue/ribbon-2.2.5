@@ -61,18 +61,19 @@ public class LoadBalancerCommand<T> {
     private static final Logger logger = LoggerFactory.getLogger(LoadBalancerCommand.class);
 
     public static class Builder<T> {
-        private RetryHandler        retryHandler;
-        private ILoadBalancer       loadBalancer;
-        private IClientConfig       config;
+        private RetryHandler retryHandler;
+        private ILoadBalancer loadBalancer;
+        private IClientConfig config;
         private LoadBalancerContext loadBalancerContext;
         private List<? extends ExecutionListener<?, T>> listeners;
-        private Object              loadBalancerKey;
+        private Object loadBalancerKey;
         private ExecutionContext<?> executionContext;
         private ExecutionContextListenerInvoker invoker;
-        private URI                 loadBalancerURI;
-        private Server              server;
+        private URI loadBalancerURI;
+        private Server server;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder<T> withLoadBalancer(ILoadBalancer loadBalancer) {
             this.loadBalancer = loadBalancer;
@@ -153,7 +154,7 @@ public class LoadBalancerCommand<T> {
         return new Builder<T>();
     }
 
-    private final URI    loadBalancerURI;
+    private final URI loadBalancerURI;
     private final Object loadBalancerKey;
 
     private final LoadBalancerContext loadBalancerContext;
@@ -164,17 +165,18 @@ public class LoadBalancerCommand<T> {
     private final ExecutionContextListenerInvoker<?, T> listenerInvoker;
 
     private LoadBalancerCommand(Builder<T> builder) {
-        this.loadBalancerURI     = builder.loadBalancerURI;
-        this.loadBalancerKey     = builder.loadBalancerKey;
+        this.loadBalancerURI = builder.loadBalancerURI;
+        this.loadBalancerKey = builder.loadBalancerKey;
         this.loadBalancerContext = builder.loadBalancerContext;
-        this.retryHandler        = builder.retryHandler != null ? builder.retryHandler : loadBalancerContext.getRetryHandler();
-        this.listenerInvoker     = builder.invoker;
-        this.server              = builder.server;
+        this.retryHandler = builder.retryHandler != null ? builder.retryHandler : loadBalancerContext.getRetryHandler();
+        this.listenerInvoker = builder.invoker;
+        this.server = builder.server;
     }
 
     /**
      * Return an Observable that either emits only the single requested server
      * or queries the load balancer for the next server on each subscription
+     * FIXME 服务选择的相关实现；
      */
     private Observable<Server> selectServer() {
         return Observable.create(new OnSubscribe<Server>() {
@@ -192,9 +194,9 @@ public class LoadBalancerCommand<T> {
     }
 
     class ExecutionInfoContext {
-        Server      server;
-        int         serverAttemptCount = 0;
-        int         attemptCount = 0;
+        Server server;
+        int serverAttemptCount = 0;
+        int attemptCount = 0;
 
         public void setServer(Server server) {
             this.server = server;
@@ -220,11 +222,11 @@ public class LoadBalancerCommand<T> {
         }
 
         public ExecutionInfo toExecutionInfo() {
-            return ExecutionInfo.create(server, attemptCount-1, serverAttemptCount-1);
+            return ExecutionInfo.create(server, attemptCount - 1, serverAttemptCount - 1);
         }
 
         public ExecutionInfo toFinalExecutionInfo() {
-            return ExecutionInfo.create(server, attemptCount, serverAttemptCount-1);
+            return ExecutionInfo.create(server, attemptCount, serverAttemptCount - 1);
         }
 
     }
@@ -256,7 +258,6 @@ public class LoadBalancerCommand<T> {
      * function and will not be observed by the {@link Observer} subscribed to the returned {@link Observable}. If number of retries has
      * exceeds the maximal allowed, a final error will be emitted by the returned {@link Observable}. Otherwise, the first successful
      * result during execution and retries will be emitted.
-     *
      */
     public Observable<T> submit(final ServerOperation<T> operation) {
         final ExecutionInfoContext context = new ExecutionInfoContext();
@@ -272,10 +273,10 @@ public class LoadBalancerCommand<T> {
         final int maxRetrysSame = retryHandler.getMaxRetriesOnSameServer();
         final int maxRetrysNext = retryHandler.getMaxRetriesOnNextServer();
 
-        // Use the load balancer
-        Observable<T> o =
-                (server == null ? selectServer() : Observable.just(server))
+        //FIXME 再次包装一下，增加一些业务逻辑，Observable特象包装模式， Use the load balancer
+        Observable<T> o = (server == null ? selectServer() : Observable.just(server))
                 .concatMap(new Func1<Server, Observable<T>>() {
+
                     @Override
                     // Called for each server being selected
                     public Observable<T> call(Server server) {
@@ -286,6 +287,7 @@ public class LoadBalancerCommand<T> {
                         Observable<T> o = Observable
                                 .just(server)
                                 .concatMap(new Func1<Server, Observable<T>>() {
+
                                     @Override
                                     public Observable<T> call(final Server server) {
                                         context.incAttemptCount();
@@ -301,8 +303,10 @@ public class LoadBalancerCommand<T> {
 
                                         final Stopwatch tracer = loadBalancerContext.getExecuteTracer().start();
 
+                                        //FIXME 增加 统计功能
                                         return operation.call(server).doOnEach(new Observer<T>() {
                                             private T entity;
+
                                             @Override
                                             public void onCompleted() {
                                                 recordStats(tracer, stats, entity, null);
@@ -334,28 +338,31 @@ public class LoadBalancerCommand<T> {
                                     }
                                 });
 
-                        if (maxRetrysSame > 0)
+                        if (maxRetrysSame > 0) {
                             o = o.retry(retryPolicy(maxRetrysSame, true));
+                        }
                         return o;
                     }
                 });
 
-        if (maxRetrysNext > 0 && server == null)
+        if (maxRetrysNext > 0 && server == null) {
             o = o.retry(retryPolicy(maxRetrysNext, false));
+        }
 
+        //FIXME 把异常包装成observerable
         return o.onErrorResumeNext(new Func1<Throwable, Observable<T>>() {
+
             @Override
             public Observable<T> call(Throwable e) {
                 if (context.getAttemptCount() > 0) {
                     if (maxRetrysNext > 0 && context.getServerAttemptCount() == (maxRetrysNext + 1)) {
                         e = new ClientException(ClientException.ErrorType.NUMBEROF_RETRIES_NEXTSERVER_EXCEEDED,
                                 "Number of retries on next server exceeded max " + maxRetrysNext
-                                + " retries, while making a call for: " + context.getServer(), e);
-                    }
-                    else if (maxRetrysSame > 0 && context.getAttemptCount() == (maxRetrysSame + 1)) {
+                                        + " retries, while making a call for: " + context.getServer(), e);
+                    } else if (maxRetrysSame > 0 && context.getAttemptCount() == (maxRetrysSame + 1)) {
                         e = new ClientException(ClientException.ErrorType.NUMBEROF_RETRIES_EXEEDED,
                                 "Number of retries exceeded max " + maxRetrysSame
-                                + " retries, while making a call for: " + context.getServer(), e);
+                                        + " retries, while making a call for: " + context.getServer(), e);
                     }
                 }
                 if (listenerInvoker != null) {

@@ -81,7 +81,10 @@ public class RxMovieServer {
                 response.setStatus(HttpResponseStatus.NOT_FOUND);
                 return response.close();
             }
-        }).pipelineConfigurator(PipelineConfigurators.<ByteBuf, ByteBuf>httpServerConfigurator()).enableWireLogging(LogLevel.ERROR).build();
+        }).pipelineConfigurator(PipelineConfigurators
+                .<ByteBuf, ByteBuf>httpServerConfigurator())
+                .enableWireLogging(LogLevel.ERROR)
+                .build();
 
         System.out.println("RxMovie server started...");
         return server;

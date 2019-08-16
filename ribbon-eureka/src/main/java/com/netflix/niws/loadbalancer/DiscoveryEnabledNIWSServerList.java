@@ -19,7 +19,6 @@ package com.netflix.niws.loadbalancer;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.appinfo.InstanceInfo.InstanceStatus;
 import com.netflix.client.config.CommonClientConfigKey;
@@ -33,7 +32,6 @@ import com.netflix.loadbalancer.AbstractServerList;
 import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.inject.Provider;
 
 /**
@@ -177,7 +175,6 @@ public class DiscoveryEnabledNIWSServerList extends AbstractServerList<Discovery
                             // and we don't want to corrupt the global eureka copy of the object which may be
                             // used by other clients in our system
                             InstanceInfo copy = new InstanceInfo(ii);
-
                             if(isSecure){
                                 ii = new InstanceInfo.Builder(copy).setSecurePort(overridePort).build();
                             }else{
@@ -214,7 +211,6 @@ public class DiscoveryEnabledNIWSServerList extends AbstractServerList<Discovery
         sb.append("; datacenter:").append(datacenter);
         return sb.toString();
     }
-
 
     private static IClientConfig createClientConfig(String vipAddresses) {
         IClientConfig clientConfig = DefaultClientConfigImpl.getClientConfigWithDefaultValues();

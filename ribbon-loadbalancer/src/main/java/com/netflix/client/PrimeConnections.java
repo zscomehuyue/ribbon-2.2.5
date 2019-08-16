@@ -49,21 +49,21 @@ import com.netflix.servo.monitor.Timer;
  * mainly done to address those deployment environments (Read EC2) which benefit
  * from a firewall connection/path warmup prior to actual use for live requests.
  * <p>
- * This class is not protocol specific. Actual priming operation is delegated to 
+ * This class is not protocol specific. Actual priming operation is delegated to
  * instance of {@link IPrimeConnection}, which is instantiated using reflection
  * according to property {@link CommonClientConfigKey#PrimeConnectionsClassName}.
- * 
+ *
  * @author stonse
  * @author awang
  * @author aspyker
- * 
+ *
  */
 public class PrimeConnections {
 
     public static interface PrimeConnectionListener {
         public void primeCompleted(Server s, Throwable lastException);
     }
-    
+
     public static class PrimeConnectionEndStats {
         public final int total;
         public final int success;
@@ -113,11 +113,11 @@ public class PrimeConnections {
     long totalTimeTaken = 0; // Total time taken
 
     private boolean aSync = true;
-        
+
     Counter totalCounter;
     Counter successCounter;
     Timer initialPrimeTimer;
-    
+
     private IPrimeConnection connector;
 
     private PrimeConnectionEndStats stats;
@@ -128,7 +128,7 @@ public class PrimeConnections {
     public PrimeConnections(String name, IClientConfig niwsClientConfig) {
         int maxRetriesPerServerPrimeConnection = Integer.valueOf(DefaultClientConfigImpl.DEFAULT_MAX_RETRIES_PER_SERVER_PRIME_CONNECTION);
         long maxTotalTimeToPrimeConnections = Long.valueOf(DefaultClientConfigImpl.DEFAULT_MAX_TOTAL_TIME_TO_PRIME_CONNECTIONS);
-        String primeConnectionsURI = DefaultClientConfigImpl.DEFAULT_PRIME_CONNECTIONS_URI;  
+        String primeConnectionsURI = DefaultClientConfigImpl.DEFAULT_PRIME_CONNECTIONS_URI;
         String className = DefaultClientConfigImpl.DEFAULT_PRIME_CONNECTIONS_CLASS;
         try {
             maxRetriesPerServerPrimeConnection = Integer.parseInt(String.valueOf(niwsClientConfig.getProperty(
@@ -152,26 +152,26 @@ public class PrimeConnections {
         } catch (Exception e) {
             throw new RuntimeException("Unable to initialize prime connections", e);
         }
-        setUp(name, maxRetriesPerServerPrimeConnection, 
-                maxTotalTimeToPrimeConnections, primeConnectionsURI, primeRatio);        
+        setUp(name, maxRetriesPerServerPrimeConnection,
+                maxTotalTimeToPrimeConnections, primeConnectionsURI, primeRatio);
     }
-        
-    public PrimeConnections(String name, int maxRetries, 
+
+    public PrimeConnections(String name, int maxRetries,
             long maxTotalTimeToPrimeConnections, String primeConnectionsURI) {
         setUp(name, maxRetries, maxTotalTimeToPrimeConnections, primeConnectionsURI, DefaultClientConfigImpl.DEFAULT_MIN_PRIME_CONNECTIONS_RATIO);
     }
 
-    public PrimeConnections(String name, int maxRetries, 
+    public PrimeConnections(String name, int maxRetries,
             long maxTotalTimeToPrimeConnections, String primeConnectionsURI, float primeRatio) {
         setUp(name, maxRetries, maxTotalTimeToPrimeConnections, primeConnectionsURI, primeRatio);
     }
 
-    private void setUp(String name, int maxRetries, 
-            long maxTotalTimeToPrimeConnections, String primeConnectionsURI, float primeRatio) {        
+    private void setUp(String name, int maxRetries,
+            long maxTotalTimeToPrimeConnections, String primeConnectionsURI, float primeRatio) {
         this.name = name;
         this.maxRetries = maxRetries;
         this.maxTotalTimeToPrimeConnections = maxTotalTimeToPrimeConnections;
-        this.primeConnectionsURIPath = primeConnectionsURI;        
+        this.primeConnectionsURIPath = primeConnectionsURI;
         this.primeRatio = primeRatio;
         executorService = new ThreadPoolExecutor(1 /* minimum */,
                 maxExecutorThreads /* max threads */,
@@ -186,20 +186,20 @@ public class PrimeConnections {
                                                               * our Thread a
                                                               * name
                                                               */
-        );        
+        );
         totalCounter = Monitors.newCounter(name + "_PrimeConnection_TotalCounter");
         successCounter = Monitors.newCounter(name + "_PrimeConnection_SuccessCounter");
         initialPrimeTimer = Monitors.newTimer(name + "_initialPrimeConnectionsTimer", TimeUnit.MILLISECONDS);
         Monitors.registerObject(name + "_PrimeConnection", this);
     }
-    
+
     /**
-     * Prime connections, blocking until configured percentage (default is 100%) of target servers are primed 
+     * Prime connections, blocking until configured percentage (default is 100%) of target servers are primed
      * or max time is reached.
-     * 
+     *
      * @see CommonClientConfigKey#MinPrimeConnectionsRatio
      * @see CommonClientConfigKey#MaxTotalTimeToPrimeConnections
-     * 
+     *
      */
     public void primeConnections(List<Server> servers) {
         if (servers == null || servers.size() == 0) {
@@ -209,11 +209,11 @@ public class PrimeConnections {
         for (Server server: servers) {
             server.setReadyToServe(false);
         }
-        int totalCount = (int) (servers.size() * primeRatio); 
+        int totalCount = (int) (servers.size() * primeRatio);
         final CountDownLatch latch = new CountDownLatch(totalCount);
         final AtomicInteger successCount = new AtomicInteger(0);
         final AtomicInteger failureCount= new AtomicInteger(0);
-        primeConnectionsAsync(servers, new PrimeConnectionListener()  {            
+        primeConnectionsAsync(servers, new PrimeConnectionListener()  {
             @Override
             public void primeCompleted(Server s, Throwable lastException) {
                 if (lastException == null) {
@@ -224,8 +224,8 @@ public class PrimeConnections {
                 }
                 latch.countDown();
             }
-        }); 
-                
+        });
+
         Stopwatch stopWatch = initialPrimeTimer.start();
         try {
             latch.await(maxTotalTimeToPrimeConnections, TimeUnit.MILLISECONDS);
@@ -274,10 +274,10 @@ public class PrimeConnections {
         outerExecutorService.submit(ft);
     }
     */
-    
+
     /**
      * Prime servers asynchronously.
-     * 
+     *
      * @param servers
      * @param listener
      */
@@ -290,7 +290,7 @@ public class PrimeConnections {
         if (allServers.size() == 0){
             logger.debug("RestClient:" + name + ". No nodes/servers to prime connections");
             return Collections.emptyList();
-        }        
+        }
 
         logger.info("Priming Connections for RestClient:" + name
                 + ", numServers:" + allServers.size());
@@ -317,11 +317,11 @@ public class PrimeConnections {
             } else {
                 connectToServer(s, listener);
             }
-        }   
+        }
         return ftList;
     }
-    
-    private Future<Boolean> makeConnectionASync(final Server s, 
+
+    private Future<Boolean> makeConnectionASync(final Server s,
             final PrimeConnectionListener listener) throws InterruptedException, RejectedExecutionException {
         Callable<Boolean> ftConn = new Callable<Boolean>() {
             public Boolean call() throws Exception {
@@ -345,7 +345,7 @@ public class PrimeConnections {
         do {
             try {
                 logger.debug("Executing PrimeConnections request to server {} with path {}, tryNum={}",
-                	s, primeConnectionsURIPath, tryNum);
+                	s, primeConnectionsURIPath);
                 success = connector.connect(s, primeConnectionsURIPath);
                 successCounter.increment();
                 lastException = null;
@@ -357,8 +357,8 @@ public class PrimeConnections {
                 logger.debug("Error connecting to server: {}", e.getMessage());
                 lastException = e;
                 sleepBeforeRetry(tryNum);
-            } 
-            logger.debug("server:{}, result={}, tryNum={}, maxRetries={}", s, success, tryNum, maxRetries);
+            }
+            logger.debug("server:{}, result={}, tryNum={}, maxRetries={}", s, success);
             tryNum++;
         } while (!success && (tryNum <= maxRetries));
         // set the alive flag so that it can be used by load balancers
@@ -369,8 +369,8 @@ public class PrimeConnections {
                 logger.error("Error calling PrimeComplete listener for server '{}'", s, e);
             }
         }
-        logger.debug("Either done, or quitting server:{}, result={}, tryNum={}, maxRetries={}", 
-        	s, success, tryNum, maxRetries);
+        logger.debug("Either done, or quitting server:{}, result={}, tryNum={}, maxRetries={}",
+        	s, success);
         return success;
     }
 
@@ -383,7 +383,7 @@ public class PrimeConnections {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     static class ASyncPrimeConnectionsThreadFactory implements ThreadFactory {
         private static final AtomicInteger groupNumber = new AtomicInteger(1);
         private final ThreadGroup group;
