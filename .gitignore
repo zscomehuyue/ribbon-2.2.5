@@ -41,11 +41,11 @@ yarn-error.log*
 /src/models/all-models.js
 /suixingpay-fe/
 /server/
-
-# ignire all dir's .DS_Store
-**/.DS_Store
+*.iws
 test.sql
 data.sql
 dumpsql.sh 
-importsql.sh 
-
+ddimportsql.sh 
+*.mlw
+*.iml
+*.iws
